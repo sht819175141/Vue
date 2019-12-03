@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <title></title>
+    <style>
+        .router-link-active{
+            color:red;
+            font-size: 20px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <!--使用router-link来导航-->
+            <!--通过传入"to"，属性，来指定链接-->
+            <!--router-link会被默认渲染成一个"a"标签-->
+            <router-link to="./foo" >Go too Foo</router-link>
+            <router-link to="./bar" >Go too Bar</router-link>
+        </div>
+
+        <!--路由出口-->
+        <!--路由匹配的组件将渲染到这里-->
+
+        <router-view></router-view>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+
+        let foo={template:"<div>这是FOO页面</div>"}
+
+        let bar={template:"<div>这是Bar页面</div>"}
+
+        let router=new VueRouter({
+            routes:[
+                {path:'/foo',component:foo},
+                {path:'/bar',component:bar},
+                {path:'/',redirect:'/foo'}
+            ]
+        })
+
+        new Vue({
+            el:"#app",
+            router
+        })
+    </script>
+</body>
+</html>

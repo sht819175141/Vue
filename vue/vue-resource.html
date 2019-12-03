@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//vue-resource    7种方式   ajax及跨域请求
+		/*get(url, [options])
+		head(url, [options])
+		delete(url, [options])
+		jsonp(url, [options])
+		post(url, [body], [options])
+		put(url, [body], [options])
+		patch(url, [body], [options])*/
+
+		//get方式
+		this.$http.get("http://www.vrserver.applinzi.com/aixianfeng/apihome.php")
+			.then(function(res){  
+        		console.log(res)  
+    		})
+
+    	//post方式
+    	this.$http.post("http://www.vrserver.applinzi.com/aixianfeng/apihome.php",
+    					{name:"abc"},
+    					{emulateJSON:true})
+    			.then(  
+		            function (res) {  
+		                // 处理成功的结果  
+		                alert(res.body);  
+		            },function (res) {  
+		            	// 处理失败的结果  
+		            }  
+        		);	 
+
+       //jsonp请求
+        this.$http.jsonp('/url',{name:"abc"}) 
+        	.then(function (res){   
+		        console.log(res)   
+		    }, function (res) {   
+		        console.log(res)   
+		     });   
+		    }   
+		})
+	</script>
+</body>
+</html>

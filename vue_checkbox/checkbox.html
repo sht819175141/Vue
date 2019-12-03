@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0多层全选按钮的实现</title>
+    <script src="vue.js"></script>
+    <style type="text/css">
+        body {
+            font-size: 28px;
+            color: red;
+        }
+
+        #app {
+            font: "微软雅黑";
+            font-size: 26px;
+            color: lightgreen;
+        }
+
+        .er {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div id="quanxuan">
+            <input id="all-checked" type="checkbox" :checked="isAllChecked()" @change="changeAllChecked($event)" />
+            <span>全选</span>
+        </div>
+
+
+        <div id="" v-for="data in datas">
+            <!--遍历父的-->
+            <input type="checkbox" :id="data.listTitle" value="" :checked="isTitleChecked(data)" @change="changeTitleChecked(data,$event)" />{{data.listTitle}}
+
+            <div class="er" v-for="item in data.listItem">
+                <!--遍历子的-->
+                <input type="checkbox" :value="item" v-model="data.selected" /> {{item.name}}
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                datas: [{
+                        //用于判断是否展示子列表
+                        // isShowListItem : false,
+                        //用于记录选中了哪些子项
+                        id: 666,
+                        selected: [],
+                        //父标题
+                        listTitle: "一级标题",
+                        //子列表
+                        listItem: [{
+                                id: 1222,
+                                info: 0,
+                                name: "高一"
+                            },
+                            {
+                                id: 23,
+                                info: 1,
+                                name: "高二"
+                            },
+                            {
+                                id: 13,
+                                info: 0,
+                                name: "高三"
+                            }
+                        ]
+                    },
+                    {
+                        // isShowListItem : false,
+                        id: 8888,
+                        selected: [],
+                        listTitle: "二级标题",
+                        listItem: [{
+                                id: 42,
+                                info: 1,
+                                name: "大一"
+                            },
+                            {
+                                id: 51,
+                                info: 0,
+                                name: "大二"
+                            }
+                        ]
+                    }
+                ]
+            },
+            methods: {
+                /**
+                 * 全选框change事件的回调处理方法
+                 * @param event
+                 */
+                changeAllChecked: function(event) {
+                    if (event.target.checked === true) {
+                        this.datas.forEach(function(data) {
+                            data.listItem.forEach(function(item) {
+                                data.selected.indexOf(item) === -1 && data.selected.push(item);
+                            })
+                        })
+                    } else {
+                        this.datas.forEach(function(data) {
+                            data.selected = [];
+                        })
+                    }
+                },
+                /**
+                 * 当父标题状态变化时的处理方法
+                 * @param data [当前项的data]
+                 * @param event [当前项的event]
+                 */
+                changeTitleChecked: function(data, event) {
+                    if (event.target.checked === true) {
+                        data.listItem.forEach(function(item) {
+                            data.selected.indexOf(item) === -1 && data.selected.push(item);
+                        })
+                    } else {
+                        data.selected = [];
+                    }
+                },
+                /**
+                 * 判断父标题选择状态
+                 * @param data [当前项的data]
+                 * @returns {boolean}
+                 */
+                isTitleChecked: function(data) {
+                    var _selected = data.selected;
+                    var _listItem = data.listItem;
+                    // 验证selected中是否含有全部的item的id 如果是 证明title要选中
+                    return _listItem.every(function(item) {
+                        return _selected.indexOf(item) != -1;
+                    });
+                },
+                /**
+                 * 判断全选框选择状态
+                 * @returns {boolean}
+                 */
+                isAllChecked: function() {
+                    return this.datas.every(function(data) {
+                        return data.selected.length === data.listItem.length;
+                    });
+                }
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

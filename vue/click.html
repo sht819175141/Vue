@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <title></title>
+    <style>
+        *{
+           padding: 0;
+           margin: 0;
+        }
+        span{
+            height: 40px;
+            width: 40px;
+            background: #ccc;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 5px;
+            margin: 30px 26px 0 10px; 
+        }
+        .bg{
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <span @click="getclick(0)" :class="{bg:check[0]}">1</span>
+        <span @click="getclick(1)" :class="{bg:check[1]}">2</span>
+        <span @click="getclick(2)" :class="{bg:check[2]}">3</span>
+        <span @click="getclick(3)" :class="{bg:check[3]}">4</span>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                check:[false,true,false,false]
+            },
+            methods:{
+                getclick:function(index){
+                    for(var i=0;i<4;i++){
+                        if(i==index){
+                            this.$set(this.check, index, true)
+                        }else{
+                            this.$set(this.check, i, false)
+                        }
+                    }  
+                }
+            }
+        })
+    </script>
+</body>
+</html>

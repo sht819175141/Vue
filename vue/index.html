@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+</head>
+<body>
+    <!-- <div id="box" v-bind:title='msg'>悬停</div>
+
+    <div id="app">
+        <p v-if="seen">现在你看到我了</p>
+    </div>
+
+    <ul id="uls">
+        <li v-for="x in datas">{{x.name}}</li>
+    </ul>
+
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="rever">逆转消息</button>
+    </div>
+
+    <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+
+    <div id="app-7">
+        <ol>
+            <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+        </ol>
+    </div>
+
+    <div id="ccc">
+        <p>{{msg}}</p>
+        <input type="text" v-model="msg"/>
+        <button v-on:cluick="onca">点击</button>
+    </div> -->
+    <div id="ccd">
+        <app-server></app-server>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script>
+
+        //注册一个子组件
+        var myChild=Vue.extend({
+            template:"<div>我是子组件{{text}}</div>",
+            data:function(){
+                return {
+                    text:"子组件内容"
+                }
+            }
+        })
+        //注册一个全局组件，他的名字叫做app-server
+        Vue.component('app-server',{
+            template:'<div>这是一个父组件{{msg}}<app-child></app-child></div>',
+            data:function(){
+                return {
+                    msg:"35434"
+                }
+            },
+            components:{
+                "app-child":myChild
+            }
+        })
+        //创件根实例
+        new Vue({
+            el:"#ccd"
+
+        })
+
+        //注册一个局部组件
+        /*new Vue({
+            el:"#box",
+            data:{
+                msg:"hello world"+new Date()
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                seen: true
+            }
+        })
+
+        new Vue({
+            el:"#uls",
+            data:{
+                datas:[
+                    {name:'1'},
+                    {name:'2'},
+                    {name:'3'},
+                    {name:'4'},
+                    {name:'5'},
+                    {name:'6'}
+                ]
+            }
+        })
+
+        new Vue({
+            el: '#app-5',
+            data: {
+                message: 'Hello Vue.js!'
+            },
+            methods: {
+                rever: function () {
+                    this.message = this.message.split('').reverse().join('')
+                },
+                co:function(){
+
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app-6',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+
+
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+        var app7 = new Vue({
+            el: '#app-7',
+            data: {
+                groceryList: [
+                    { text: '蔬菜' },
+                    { text: '奶酪' },
+                    { text: '随便其他什么人吃的东西' }
+                ]
+            }
+        })
+
+       var vm=new Vue({
+            el:"#ccc",
+            data:{
+                msg:"123"
+            },
+            methods:{
+                onca:function(){
+                    this.msg="hello world"
+                }
+            }
+        })
+        console.log(vm.msg)*/
+
+    </script>
+</body>
+</html>

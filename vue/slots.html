@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<script src="js/vue.js"></script>
+	<div id="app">  
+        <app>  
+            <child></child>  
+            <child2></child2>  
+            <child3></child3>
+        </app>  
+    </div>  
+    </body>  
+    <script>  
+         Vue.component('app',{  
+            template:`<div> 
+			            <slot>没有则显示这个</slot>
+			            <li>111</li>  
+			            <li>222</li> 
+			            <li>333</li>  
+        			  </div>`,  
+         }) 
+
+        new Vue({  
+            el:'#app',  
+            components:{  
+                'child':{  
+                    template:'<div>hello word</div>'  
+                },  
+                'child2':{  
+                    template:'<div>hello js</div>'  
+                },  
+                'child3':{  
+                    template:'<div>hello vue js</div>'  
+                } 
+            }  
+  
+         })  
+    </script> 
+</body>
+</html>

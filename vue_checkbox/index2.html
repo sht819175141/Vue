@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="checkbox" v-model='quan' v-on:click="setQuan"> 全选{{quan}}
+        <br/>
+
+        <input type="checkbox" v-model='checked' v-on:click='checked_'> 全选{{checked}}
+        <template v-for="(list,index) in checkboxList">
+            <input type="checkbox" v-model='checkList' :value="list.id"> {{list.product_inf}}
+        </template>
+        <br/>
+
+        <input type="checkbox" v-model='checks' v-on:click='check_end'> 全选{{checks}}
+
+        <template v-for="(list,index) in checkboxs">
+            <input type="checkbox" v-model='check' :value="list.ids"> {{list.product_inf}}
+        </template>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                checkboxList: [{
+                        'id': '1',
+                        'product_inf': '女士银手链'
+                    },
+                    {
+                        'id': '2',
+                        'product_inf': '女士银手镯'
+                    }, {
+                        'id': '3',
+                        'product_inf': '女士银耳环'
+                    }
+                ],
+                checkboxs: [{
+                        'ids': '1',
+                        'product_inf': '女士银手链'
+                    },
+                    {
+                        'ids': '2',
+                        'product_inf': '女士银手镯'
+                    }, {
+                        'ids': '3',
+                        'product_inf': '女士银耳环'
+                    }
+                ],
+                quan:false,
+                checked: false, //全选框
+                checks:false,
+                checkList: [],
+                check: []
+            },
+            methods: {
+                checked_: function() {
+                    var _this = this;
+                    if (!_this.checked) { //实现反选
+                        _this.checkList = [];
+                    } else { //实现全选
+                        _this.checkList = [];
+                        this.checkboxList.forEach(function(item, index) {
+                            _this.checkList.push(item.id);
+                        });
+                    }
+                },
+                check_end: function() {
+                    var _this = this;
+                    if (!_this.checks) { //实现反选
+                        _this.check = [];
+                    } else { //实现全选
+                        _this.check = [];
+                        this.checkboxs.forEach(function(item, index) {
+                            _this.check.push(item.ids);
+                        });
+                    }
+                },
+                setQuan: function() {
+                    var _this = this;
+                    if (!_this.quan) { //实现反选
+                        _this.checked=false;
+                        _this.checks=false;
+                        _this.checkList = [];
+                        _this.check = [];
+                    } else { //实现全选
+                        _this.checked=true;
+                        _this.checks=true;
+
+                        _this.checkList = [];
+                        _this.check = [];
+
+                        this.checkboxList.forEach(function(item, index) {
+                            _this.checkList.push(item.id);
+                        });
+                        this.checkboxs.forEach(function(item, index) {
+                            _this.check.push(item.ids);
+                        });
+                    }
+                }
+            },
+            watch: {
+                'checkList': {
+                    handler: function(val, oldVal) {
+                        if (val.length === this.checkboxList.length) {
+                            this.checked = true;
+                        } else {
+                            this.checked = false;
+                        }
+                    },
+                    deep: true
+                },
+                'check': {
+                    handler: function(val, oldVal) {
+                        if (val.length === this.checkboxs.length) {
+                            this.checks = true;
+                        } else {
+                            this.checks = false;
+                        }
+                    },
+                    deep: true
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

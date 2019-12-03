@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//axios跨域请求
+		
+		//下载时需要注意，
+		// 这两项是必要设置  
+		// import axios from 'axios'  
+		// Vue.prototype.$http = axios;	
+		//我们引用了axios，再将axios这个对象clone到Vue的$http这个属性上,以后我们就可以在其他组件里使用axios来进行 异步请求了 
+		//需要在后台，设置三个header
+		
+		//案例
+		<script>
+			//get请求	
+			export default {
+			  name: 'hello',
+			  data () {
+			    return {
+			      msg: 'Welcome to Your Vue.js App'
+			    }
+			  },
+			  created:function(){
+			    this.HelloAxios();
+			  },
+			  methods:{
+			    HelloAxios(){
+			      this.$http.get('http://localhost:54903/api/values')
+			      	.then(m=>console.log(m.data)
+			      );
+			    }
+			  }
+			}
+
+			//post请求
+			export default {
+			  name: 'hello',
+			  data () {
+			    return {
+			      msg: 'Welcome to Your Vue.js App'
+			    }
+			  },
+			  created:function(){
+			    this.HelloAxios();
+			    this.HelloAxiosPost('HelloAxiosPost');
+			  },
+			  methods:{
+			    HelloAxios(){
+			      this.$http.get('http://localhost:54903/api/values').then(m=>console.log(m.data));
+			    },
+			    HelloAxiosPost(val){
+			      let str = 'value='+val
+			      this.$http.post('http://localhost:54903/api/values',str)
+			      	.then(m=>console.log(m.data));
+			    }
+			  }
+			}
+		</script>
+	</script>
+</body>
+</html>

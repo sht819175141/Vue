@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <title></title>
+</head>
+<body>
+    <!-- <div id="app">
+        <parent name="hell"></parent>        
+    </div> -->
+
+    <div id="app">
+        <div>
+          <input v-model="parentMsg">
+          <br>
+          <child v-bind:message="parentMsg"></child>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        /*Vue.component('parent',{
+            props:["name"],
+            template:'<span>{{name}}</span>'
+        })*/
+
+        Vue.component('child', {
+            props: ['message'],
+            template: '<span>{{ message }}</span>'
+        })
+       
+        new Vue({
+            el:"#app",
+            data: {
+                parentMsg: '父组件内容'
+            }
+        })
+    </script>
+</body>
+</html>
